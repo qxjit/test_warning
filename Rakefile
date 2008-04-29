@@ -14,7 +14,7 @@ Gem::manage_gems
 specification = Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
 	s.name   = "test_warning"
-  s.summary = "Add support for warnings (non-fatal errors) to test unit"
+  s.summary = "Adds support for warnings (non-fatal errors) to test unit"
 	s.version = "0.1.0"
 	s.author = "David Vollbracht"
 	s.description = s.summary
@@ -28,7 +28,6 @@ Rake::GemPackageTask.new(specification) do |package|
   package.need_tar = true
 end
 
-Rake::Task[:gem].prerequisites.unshift :test_warning
 Rake::Task[:gem].prerequisites.unshift :test
 
 task :tar do
