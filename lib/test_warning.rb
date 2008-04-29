@@ -5,8 +5,8 @@ module Test
         @warning_matchers ||= []
       end
 
-      def self.treat_error_as_warning(error_class)
-        warning_matchers << WarningMatcher.new(error_class)
+      def self.treat_error_as_warning(*criteria)
+        warning_matchers << WarningMatcher.new(*criteria)
       end
 
       def self.warning?(error)
@@ -41,13 +41,15 @@ module Test
         backtrace = filter_backtrace(@exception.backtrace).
                       first(backtrace_limit).join("\n    ")
 
-        "Warning:\n#{@test_name}:#{message}\n    #{backtrace}"
+        "Warning:\n#{@test_name}:\n#{message}\n    #{backtrace}"
       end
     end
 
     class TestResult
-      def add_warning(exception)
-        warnings << exception
+      def add_warning(warning)
+        warnings << warning
+        notify_listeners FAULT,   warning
+        notify_listeners CHANGED, self
       end
 
       def warning_count
