@@ -21,6 +21,7 @@ specification = Gem::Specification.new do |s|
 	s.email = "david.vollbracht@gmail.com"
   s.homepage = "http://test-warning.rubyforge.org"
   s.rubyforge_project = "test_warning"
+  s.files = FileList['{lib,test}/**/*.{rb}', 'Rakefile'].to_a
 end
 
 Rake::GemPackageTask.new(specification) do |package|
